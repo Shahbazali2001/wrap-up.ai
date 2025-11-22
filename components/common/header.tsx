@@ -11,8 +11,10 @@ export default function Header() {
         </Link>
       </div>
 
-      <div>
+      <div className="flex lg:justify-center gap-4 lg:gap-12 lg:items-center">
         <Link href="/#pricing">Pricing</Link>
+
+        <Link href="/dashboard">Your Summaries</Link>
       </div>
 
       <div>
