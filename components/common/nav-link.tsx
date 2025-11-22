@@ -1,5 +1,9 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 interface NavLinkProps {
   href: string;
   children: React.ReactNode;
@@ -7,11 +11,16 @@ interface NavLinkProps {
 }
 
 export default function NavLink({ href, children, className }: NavLinkProps) {
+  const pathname = usePathname();
+  const isActive =
+    pathname === href || (href !== "/" && pathname.startsWith(href));
+
   return (
     <Link
       className={cn(
-        "transition-colors text-sm duration-200 text-gray-600 hover:text-rose-500",
-        className
+        `transition-colors text-sm duration-200 text-gray-600 hover:text-rose-500`,
+        className,
+        isActive && "text-rose-500"
       )}
       href={href}
     >
