@@ -1,7 +1,11 @@
+import HeroSection from "@/components/home/hero-section";
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      Main Content
+    <div className="">
+      <div className="relative w-full">
+        <HeroSection />
+      </div>
     </div>
   );
 }
