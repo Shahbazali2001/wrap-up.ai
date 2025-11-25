@@ -28,7 +28,7 @@ export default function HeroSection() {
         <div className="flex items-center justify-center py-6">
           <Button
             variant={"link"}
-            className="text-white mt-4 text-base sm:text-lg lg:text-xl rounded-full px-8 sm:px-10 lg:px-12 py-6 sm:py-7"
+            className="text-white mt-4 text-base sm:text-lg lg:text-xl rounded-full px-8 sm:px-10 lg:px-12 py-6 sm:py-7 lg:py-8 lg:mt-16 bg-linear-to-r from-slate-900  "
           >
             <Link href="#/pricing" className="flex gap-2 items-center">
               <span className="">Get Started</span>
