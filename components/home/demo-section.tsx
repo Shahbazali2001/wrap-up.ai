@@ -3,7 +3,7 @@ import { Pizza } from "lucide-react";
 export default function DemoSection() {
   return (
     <section className="">
-      <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 lg:pt-12">
         <div className="flex flex-col items-center justify-center text-center space-y-4">
           {/* Pizza Icon */}
           <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-gray-300/20 backdrop-blur-xs border border-gray-500/30 mb-4">
