@@ -1,5 +1,6 @@
 import { BrainCircuit, FileOutput, FileText } from "lucide-react";
 import { ReactNode } from "react";
+import StepItemCard from "./step-item-card";
 type Step = {
   icon: ReactNode;
   label: string;
@@ -38,9 +39,7 @@ export default function HowItWorks() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto relative">
           {steps.map((step, index) => (
-            <div className="" key={index}>
-              {step.label}
-            </div>
+            <StepItemCard key={index} {...step} />
           ))}
         </div>
       </div>
