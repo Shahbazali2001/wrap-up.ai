@@ -1,4 +1,4 @@
-import { BrainCircuit, FileOutput, FileText } from "lucide-react";
+import { BrainCircuit, FileOutput, FileText, MoveRight } from "lucide-react";
 import { ReactNode } from "react";
 import StepItemCard from "./step-item-card";
 type Step = {
@@ -39,7 +39,18 @@ export default function HowItWorks() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto relative">
           {steps.map((step, index) => (
-            <StepItemCard key={index} {...step} />
+            <div key={index} className="relative flex items-stretch">
+              <StepItemCard key={index} {...step} />
+              {index < steps.length - 1 && (
+                <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                  <MoveRight
+                    size={32}
+                    strokeWidth={2}
+                    className="text-rose-400"
+                  />
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </div>
