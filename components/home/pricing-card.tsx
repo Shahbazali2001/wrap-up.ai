@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Plan } from "@/misc/plans";
-import { Check, CheckCheckIcon } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
+import { Button } from "../ui/button";
 export default function PricingCard({
   name,
   paymentId,
@@ -40,8 +41,19 @@ export default function PricingCard({
           ))}
         </div>
 
-        <div>
-          <Link href={`/${paymentId}`}>Buy Now</Link>
+        <div className="flex justify-center w-full">
+          <Button
+            variant={"link"}
+            className="text-white mt-4 text-base sm:text-lg lg:text-xl rounded-full w-full px-6 sm:px-10 lg:px-12 py-6 sm:py-6 lg:py-7 lg:mt-12 bg-linear-to-r from-slate-900 to-rose-500 hover:from-rose-500 hover:to-slate-900 hover:no-underline font-bold shadow-lg transition-all duration-500 ease-in-out transform hover:scale-105"
+          >
+            <Link
+              href={`/${paymentId}`}
+              className="flex flex-row justify-center items-center"
+            >
+              Buy Now
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
