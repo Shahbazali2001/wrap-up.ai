@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Plan } from "@/misc/plans";
+import { Check, CheckCheckIcon } from "lucide-react";
 import Link from "next/link";
 export default function PricingCard({
   name,
@@ -12,7 +13,7 @@ export default function PricingCard({
     <div className="relative w-full max-w-lg">
       <div
         className={cn(
-          "relative flex flex-col h-full gap-4 lg:gap-8 z-10 p-8 border-2 border-gray-500/20 rounded-xl",
+          "relative flex flex-col h-full gap-4 lg:gap-8 z-10 p-8 border-2 border-gray-700/20 rounded-xl",
           name === "Pro" && " border-rose-500 border-2"
         )}
       >
@@ -23,13 +24,19 @@ export default function PricingCard({
           </div>
         </div>
 
-        <div>
-          <p>$ {price}</p>
+        <div className="flex gap-2">
+          <p className="text-5xl tracking-tight font-extrabold">${price}</p>
+          <div>
+            <p className="text-xs">USD / month</p>
+          </div>
         </div>
 
-        <div>
+        <div className="space-y-2.5 leading-relaxed text-base flex-1">
           {items.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index} className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-rose-500" />
+              <span>{item}</span>
+            </li>
           ))}
         </div>
 
