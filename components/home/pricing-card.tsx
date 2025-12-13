@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Plan } from "@/misc/plans";
 import Link from "next/link";
 export default function PricingCard({
@@ -9,7 +10,12 @@ export default function PricingCard({
 }: Plan) {
   return (
     <div className="relative w-full max-w-lg">
-      <div className="relative flex flex-col h-full gap-4 lg:gap-8 z-10 p-8 border-2 border-gray-500/20 rounded-xl">
+      <div
+        className={cn(
+          "relative flex flex-col h-full gap-4 lg:gap-8 z-10 p-8 border-2 border-gray-500/20 rounded-xl",
+          name === "Pro" && " border-rose-500 border-2"
+        )}
+      >
         <div className="flex justify-between items-center gap-4">
           <div>
             <p className="text-lg lg:text-xl font-bold capitalize">{name}</p>
