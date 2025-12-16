@@ -14,7 +14,7 @@ export default function PricingCard({
     <div className="relative w-full max-w-lg">
       <div
         className={cn(
-          "relative flex flex-col h-full gap-4 lg:gap-8 z-10 p-8 border-2 border-gray-700/20 rounded-xl",
+          "relative flex flex-col h-full gap-4 lg:gap-8 z-10 p-8 border-2 border-gray-700/20 rounded-xl hover:scale-105 transition-all duration-300",
           name === "Pro" && " border-rose-500 border-2"
         )}
       >
