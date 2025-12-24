@@ -1,3 +1,8 @@
+import UploadFormInput from "./upload-form-input";
 export default function UploadForm() {
-  return <div>UploadForm</div>;
+  return (
+    <div>
+      <UploadFormInput />
+    </div>
+  );
 }
