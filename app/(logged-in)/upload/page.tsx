@@ -1,6 +1,7 @@
 import { Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import BgGradient from "@/components/common/bg-gradient";
+import UploadForm from "@/components/upload/upload-form";
 
 export default function UploadPage() {
   return (
@@ -19,11 +20,15 @@ export default function UploadPage() {
 
         <div>
           <h1 className="font-bold py-6 mt-4 text-center">
-            Start <span className="text-rose-500">Uploading</span> Your PDFs
+            Start <span className="text-rose-500">Uploading</span> Your PDF's
           </h1>
           <h2 className="text-lg sm:text-xl lg:text-2xl text-center px-4 text-gray-600">
-            Upload your PDF and let our AI do the heavy lifting
+            Upload your PDF and let our AI do the heavy lifting 🏋️
           </h2>
+        </div>
+
+        <div className="mt-12">
+          <UploadForm />
         </div>
       </div>
     </section>
