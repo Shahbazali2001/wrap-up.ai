@@ -10,6 +10,16 @@ export default function UploadForm() {
     console.log(e);
     const formData = new FormData(e.currentTarget);
     const file = formData.get("file") as File;
+    console.log(file);
+
+    const validateFields = schema.safeParse({ file });
+
+    if (!validateFields.success) {
+      console.log(
+        validateFields.error.flatten().fieldErrors.file?.[0] ?? "Invalid File"
+      );
+      return;
+    }
   };
 
   return (
