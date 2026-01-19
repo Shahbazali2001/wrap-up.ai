@@ -33,4 +33,6 @@ export const ourFileRouter = {
     }),
 } satisfies FileRouter;
 
+// Router for Uploadthing
+
 export type OurFileRouter = typeof ourFileRouter;
