@@ -2,16 +2,17 @@
 import { z } from "zod";
 import UploadFormInput from "./upload-form-input";
 import { useUploadThing } from "@/utils/uploadthing";
+import { toast } from "sonner";
 
 const schema = z.object({});
 
 export default function UploadForm() {
   const { startUpload, routeConfig } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
-      alert("uploaded successfully!");
+      toast("uploaded successfully!");
     },
     onUploadError: () => {
-      alert("error occurred while uploading");
+      toast("error occurred while uploading");
     },
     onUploadBegin: ({ file }) => {
       console.log("upload has begun for", file);
@@ -28,11 +29,11 @@ export default function UploadForm() {
     const validateFields = schema.safeParse({ file });
 
     if (!validateFields.success) {
-      console.log(
-        validateFields.error.flatten().fieldErrors.file?.[0] ?? "Invalid File",
-      );
+      toast.error(validateFields.error.message);
       return;
     }
+
+    toast("uploading...");
 
     const response = await startUpload([file]);
 
