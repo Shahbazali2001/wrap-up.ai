@@ -1,11 +1,24 @@
 "use client";
 import { z } from "zod";
 import UploadFormInput from "./upload-form-input";
+import { useUploadThing } from "@/utils/uploadthing";
 
 const schema = z.object({});
 
 export default function UploadForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { startUpload, routeConfig } = useUploadThing("pdfUploader", {
+    onClientUploadComplete: () => {
+      alert("uploaded successfully!");
+    },
+    onUploadError: () => {
+      alert("error occurred while uploading");
+    },
+    onUploadBegin: ({ file }) => {
+      console.log("upload has begun for", file);
+    },
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(e);
     const formData = new FormData(e.currentTarget);
@@ -16,9 +29,17 @@ export default function UploadForm() {
 
     if (!validateFields.success) {
       console.log(
-        validateFields.error.flatten().fieldErrors.file?.[0] ?? "Invalid File"
+        validateFields.error.flatten().fieldErrors.file?.[0] ?? "Invalid File",
       );
       return;
+    }
+
+    const response = await startUpload([file]);
+
+    if (response) {
+      console.log(response);
+    } else {
+      console.log("something went wrong");
     }
   };
 
