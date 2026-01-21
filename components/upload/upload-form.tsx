@@ -2,6 +2,7 @@
 import { z } from "zod";
 import UploadFormInput from "./upload-form-input";
 import { useUploadThing } from "@/utils/uploadthing";
+import { generatePdfSummary } from "@/actions/upload-actions";
 import { toast } from "sonner";
 
 const schema = z.object({});
@@ -42,6 +43,10 @@ export default function UploadForm() {
     } else {
       console.log("something went wrong");
     }
+
+    // PDF Summary
+
+    const summary = await generatePdfSummary(file);
   };
 
   return (
