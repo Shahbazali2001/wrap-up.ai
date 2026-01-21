@@ -1,4 +1,5 @@
 'user server';
+import { fetchandExtractPdfText } from "@/lib/langChain";
 
 interface ServerData {
    userId: string;
@@ -32,6 +33,8 @@ export async function generatePdfSummary(uploadResponse: ServerData[]) {
     }
 
     try{
+
+        const pdfText = await fetchandExtractPdfText(pdfUrl);
 
     }catch(error : unknown){
         const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
