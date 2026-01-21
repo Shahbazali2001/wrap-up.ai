@@ -46,7 +46,9 @@ export default function UploadForm() {
 
     // PDF Summary
 
-    const summary = await generatePdfSummary(file);
+    const summary = await generatePdfSummary(response);
+
+    console.log(summary);
   };
 
   return (
