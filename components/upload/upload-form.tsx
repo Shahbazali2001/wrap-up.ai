@@ -5,21 +5,31 @@ import { useUploadThing } from "@/utils/uploadthing";
 import { generatePdfSummary } from "@/actions/upload-actions";
 import { toast } from "sonner";
 
+interface ServerData {
+  userId: string;
+  file: {
+    url: string;
+    name: string;
+  };
+}
+
 const schema = z.object({});
 
 export default function UploadForm() {
-  const { startUpload, routeConfig } = useUploadThing("pdfUploader", {
+  // Upload to uploadthing
+  const { startUpload } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
       toast("uploaded successfully!");
     },
     onUploadError: () => {
       toast("error occurred while uploading");
     },
-    onUploadBegin: ({ file }) => {
-      console.log("upload has begun for", file);
+    onUploadBegin: (fileName) => {
+      console.log("upload has begun for", fileName);
     },
   });
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(e);
@@ -42,11 +52,20 @@ export default function UploadForm() {
       console.log(response);
     } else {
       console.log("something went wrong");
+      return;
     }
 
-    // PDF Summary
+    // Sending Response to LangChain
 
-    const summary = await generatePdfSummary(response);
+    const serverData: ServerData[] = response.map((item) => ({
+      userId: item.serverData.userId, // ✅ FIX
+      file: {
+        url: item.serverData.fileUrl,
+        name: item.serverData.fileName,
+      },
+    }));
+
+    const summary = await generatePdfSummary(serverData);
 
     console.log(summary);
   };
