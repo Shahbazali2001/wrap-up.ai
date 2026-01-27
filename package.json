@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.36.5",
-    "@langchain/community": "^1.1.4",
-    "@langchain/core": "^1.1.15",
+    "@langchain/community": "^1.1.8",
+    "@langchain/core": "^1.1.17",
     "@radix-ui/react-slot": "^1.2.4",
     "@uploadthing/react": "^7.3.3",
     "autoprefixer": "^10.4.22",
