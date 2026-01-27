@@ -1,4 +1,5 @@
 "use client";
+
 import { z } from "zod";
 import UploadFormInput from "./upload-form-input";
 import { useUploadThing } from "@/utils/uploadthing";
@@ -13,61 +14,84 @@ interface ServerData {
   };
 }
 
-const schema = z.object({});
+interface UploadThingFile {
+  ufsUrl: string;
+  name: string;
+  size?: number;
+  key?: string;
+  type?: string;
+}
+
+interface UploadResponseItem {
+  serverData: {
+    userId: string;
+    fileUrl: string;
+    fileName: string;
+  };
+}
+
+const schema = z.object({
+  file: z.instanceof(File, "Please select a valid file"),
+});
 
 export default function UploadForm() {
-  // Upload to uploadthing
+  // UploadThing hook
   const { startUpload } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
-      toast("uploaded successfully!");
+      toast("Uploaded successfully!");
     },
     onUploadError: () => {
-      toast("error occurred while uploading");
+      toast.error("Error occurred while uploading");
     },
     onUploadBegin: (fileName) => {
-      console.log("upload has begun for", fileName);
+      console.log("Upload has begun for", fileName);
     },
   });
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e);
+
     const formData = new FormData(e.currentTarget);
-    const file = formData.get("file") as File;
-    console.log(file);
+    const file = formData.get("file") as File | null;
 
-    const validateFields = schema.safeParse({ file });
-
-    if (!validateFields.success) {
-      toast.error(validateFields.error.message);
+    // Validate file
+    const validate = schema.safeParse({ file });
+    if (!validate.success || !file) {
+      toast.error(validate.success ? "File not found" : validate.error.message);
       return;
     }
 
-    toast("uploading...");
+    toast("Uploading...");
 
-    const response = await startUpload([file]);
+    try {
+      // startUpload expects an array of files
+      const response: UploadResponseItem[] | null = await startUpload([file]);
 
-    if (response) {
-      console.log(response);
-    } else {
-      console.log("something went wrong");
-      return;
+      if (!response || response.length === 0) {
+        toast.error("Something went wrong with the upload");
+        return;
+      }
+
+      // Map the response to ServerData
+      const serverData: ServerData[] = response.map((item) => ({
+        userId: item.serverData.userId,
+        file: {
+          url: item.serverData.fileUrl,
+          name: item.serverData.fileName,
+        },
+      }));
+
+      console.log("Server Data:", serverData);
+
+      // Generate PDF summary
+      const summary = await generatePdfSummary(serverData);
+      console.log("Summary:", summary);
+
+      toast.success("PDF summary generated successfully!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Upload failed");
     }
-
-    // Sending Response to LangChain
-
-    const serverData: ServerData[] = response.map((item) => ({
-      userId: item.serverData.userId, // ✅ FIX
-      file: {
-        url: item.serverData.fileUrl,
-        name: item.serverData.fileName,
-      },
-    }));
-
-    const summary = await generatePdfSummary(serverData);
-
-    console.log(summary);
   };
 
   return (
